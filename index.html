@@ -134,8 +134,7 @@
 <div class="card">
   <h1>Happy Chocolate Day 🍫</h1>
   <p class="subtitle">
-    i am really sorry i couldnt give you one in real :(
-    BUT DONT WORRYYY HERE IS A VIRTUAL ONE!!(i buy you a lot when i start earning and get my international card!)
+    i am really sorry i couldnt buy a one for you in real life but DONT WORRY!! HERE IS A VIRTUAL ONE MY LOVEE (i will buy lots of chocolate once i start earning and get my international card:3)
   </p>
 
   <div class="choco-box" id="choco">
@@ -159,44 +158,36 @@
   </div>
 
   <button class="next" id="next" onclick="goNext()">
-    GO AHEAD AND READ WHAT YOUR HUBBY WROTE FOR YOU!!! :3 💌
+    GO AHEAD AND READ WHAT YOUR HUBBY WROTE FOR YOU :3!!! 💌
   </button>
 </div>
 
 <script>
+  // chocolate logic (unchanged)
   let taps = 0;
   const wrapper = document.getElementById("wrapper");
   const chocolate = document.getElementById("chocolate");
   const hint = document.getElementById("hint");
   const next = document.getElementById("next");
-  const choco = document.getElementById("choco");
 
-  function handleTap() {
-    if (taps >= 5) return;
-
-    taps++;
-
-    wrapper.style.transform = `translateY(-${taps * 18}px)`;
-    hint.textContent = `${5 - taps} tap(s) left`;
+  document.getElementById("choco").addEventListener("click", () => {
+    if (taps < 5) {
+      taps++;
+      wrapper.style.transform = `translateY(-${taps * 18}px)`;
+      hint.textContent = `${5 - taps} tap(s) left`;
+    }
 
     if (taps === 5) {
       wrapper.style.opacity = "0";
       chocolate.style.opacity = "1";
       hint.textContent = "Unwrapped just for you 🤎";
-
-      next.style.display = "block";   // ← IMPORTANT
+      next.style.display = "inline-block";
     }
-  }
-
-  // works on iPhone + desktop
-  choco.addEventListener("click", handleTap);
-  choco.addEventListener("touchstart", handleTap, { passive: true });
+  });
 
   function goNext() {
     window.location.href = "letter.html";
   }
-</script>
-
 
   // 💗 floating hearts generator
   setInterval(() => {
