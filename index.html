@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Happy Chocolate Day 🍫</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
   body {
@@ -18,13 +18,14 @@
   }
 
   .card {
-    background: white;
+    background: rgba(255,255,255,0.97);
     padding: 30px;
     border-radius: 26px;
     width: 90%;
-    max-width: 420px;
+    max-width: 380px;
     text-align: center;
     box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    position: relative;
     z-index: 2;
   }
 
@@ -33,35 +34,90 @@
     margin-bottom: 10px;
   }
 
-  .chocolate {
-    width: 150px;
-    margin: 20px auto;
+  .subtitle {
+    font-size: 0.95rem;
+    color: #666;
+  }
+
+  .choco-box {
+    width: 180px;
+    height: 240px;
+    margin: 25px auto;
+    position: relative;
     cursor: pointer;
-    transition: transform 0.2s;
   }
 
-  .chocolate:active {
-    transform: scale(0.95);
+  .wrapper {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 2;
   }
 
-  button {
-    margin-top: 18px;
-    padding: 12px 22px;
+  .chocolate {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #6b3e26, #4b2a18);
+    border-radius: 22px;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .piece {
+    background: linear-gradient(135deg, #7a452c, #3e2316);
+    border-radius: 8px;
+  }
+
+  .hint {
+    font-size: 0.9rem;
+    color: #777;
+  }
+
+  .player {
+    margin-top: 15px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  iframe {
     border: none;
-    border-radius: 999px;
+    width: 100%;
+    height: 80px;
+  }
+
+  .next {
+    display: none;
+    margin-top: 18px;
+    padding: 12px 20px;
     background: #ff4d6d;
     color: white;
+    border: none;
+    border-radius: 16px;
     font-size: 1rem;
     cursor: pointer;
   }
 
-  /* Floating hearts */
+  /* 🌸 FLOATING HEARTS */
   .heart {
     position: fixed;
     bottom: -20px;
-    font-size: 20px;
+    font-size: 18px;
     animation: floatUp linear forwards;
     opacity: 0.8;
+    z-index: 1;
+    pointer-events: none;
   }
 
   @keyframes floatUp {
@@ -70,70 +126,81 @@
       opacity: 0;
     }
   }
-
-  /* Heart wave */
-  .wave-heart {
-    position: fixed;
-    font-size: 24px;
-    animation: wave 1.2s ease-out forwards;
-    pointer-events: none;
-  }
-
-  @keyframes wave {
-    0% { transform: scale(0) translateY(0); opacity: 1; }
-    100% { transform: scale(1.5) translateY(-120px); opacity: 0; }
-  }
 </style>
 </head>
 
 <body>
 
 <div class="card">
-  <h1>Happy Chocolate Day 🍫💗</h1>
+  <h1>Happy Chocolate Day 🍫</h1>
+  <p class="subtitle">
+    i am really sorry i couldnt give you one in real :(
+    BUT DONT WORRYYY HERE IS A VIRTUAL ONE!!(i buy you a lot when i start earning and get my international card!)
+  </p>
 
-  <img src="chocolate.png" alt="Chocolate" class="chocolate">
+  <div class="choco-box" id="choco">
+    <div class="wrapper" id="wrapper">Tap to unwrap 🎁</div>
 
-   <!-- REAL music player -->
+    <div class="chocolate" id="chocolate">
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+    </div>
+  </div>
+
+  <p class="hint" id="hint">5 taps to open</p>
+
   <div class="player">
     <iframe
-      src="https://open.spotify.com/embed/track/736PP5LTtREkDgktNmX3Gu?utm_source=generator"
+      src="https://open.spotify.com/embed/track/3XVBdLihbNbxUwZosxcGuJ"
       allow="encrypted-media">
     </iframe>
   </div>
 
-  <button onclick="goToLetter()">GO AHEAD AND READ WHAT YOUR HUBBY WROTE FOR YOU:3💌</button>
+  <button class="next" id="next" onclick="goNext()">
+    GO AHEAD AND READ WHAT YOUR HUBBY WROTE FOR YOU!!! :3 💌
+  </button>
 </div>
 
 <script>
-  // floating hearts constantly
+  // chocolate logic (unchanged)
+  let taps = 0;
+  const wrapper = document.getElementById("wrapper");
+  const chocolate = document.getElementById("chocolate");
+  const hint = document.getElementById("hint");
+  const next = document.getElementById("next");
+
+  document.getElementById("choco").addEventListener("click", () => {
+    if (taps < 5) {
+      taps++;
+      wrapper.style.transform = `translateY(-${taps * 18}px)`;
+      hint.textContent = `${5 - taps} tap(s) left`;
+    }
+
+    if (taps === 5) {
+      wrapper.style.opacity = "0";
+      chocolate.style.opacity = "1";
+      hint.textContent = "Unwrapped just for you 🤎";
+      next.style.display = "inline-block";
+    }
+  });
+
+  function goNext() {
+    window.location.href = "letter.html";
+  }
+
+  // 💗 floating hearts generator
   setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
-    heart.innerText = "💗";
+    heart.innerText = Math.random() > 0.5 ? "💗" : "💞";
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.animationDuration = (4 + Math.random() * 3) + "s";
     document.body.appendChild(heart);
 
     setTimeout(() => heart.remove(), 7000);
-  }, 400);
-
-  // heart wave on button click
-  function goToLetter() {
-    for (let i = 0; i < 18; i++) {
-      const heart = document.createElement("div");
-      heart.className = "wave-heart";
-      heart.innerText = "💖";
-      heart.style.left = 50 + (Math.random() * 40 - 20) + "vw";
-      heart.style.bottom = "50vh";
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 1200);
-    }
-
-    setTimeout(() => {
-      window.location.href = "letter.html";
-    }, 900);
-  }
+  }, 450);
 </script>
 
 </body>
