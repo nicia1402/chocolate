@@ -14,13 +14,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
   }
 
   .letter {
     background: white;
     padding: 32px;
     border-radius: 26px;
-    width: 90%;
+    width: 100%;
     max-width: 420px;
     box-shadow: 0 18px 40px rgba(0,0,0,0.18);
     text-align: center;
@@ -37,12 +38,37 @@
     color: #444;
     white-space: pre-line;
   }
+
+  /* photo section */
+  .photos {
+    margin-top: 30px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .photos img {
+    width: 130px;
+    height: 170px;
+    object-fit: cover;
+    background: white;
+    padding: 8px 8px 22px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    transition: transform 0.3s ease;
+  }
+
+  .photos img:hover {
+    transform: scale(1.05);
+  }
 </style>
 </head>
 
 <body>
   <div class="letter">
     <h1>Hey you tyler! :3 💗</h1>
+
     <p>
 tomorrow is chocolate day, and i’ve been thinking a lot about how i can’t give you something so simple just because of the distance between us. i know it might seem like a small thing, but it honestly hurts me that i can’t be there to hand you a chocolate myself. i wish i could see your reaction, watch you smile, and just be with you even for a moment. i’m really sorry that i can’t do that right now, and i hope you know that this distance is the only thing stopping me, not my feelings. if i had the choice, i would always choose to be there for you, especially on days like this.
 
@@ -54,6 +80,14 @@ i’m sorry if the distance ever makes things feel harder or makes days like cho
 
 i want you to remember that no matter what day it is, you are loved deeply and endlessly by me. chocolate day is just one day, but my love for you is something i feel every single day without fail. you are my favorite person, my happiness, and my comfort. i love you so much, and i always will. even from far away, my heart is always with you, and i hope you can feel that today and every day after. <3
     </p>
+
+    <!-- photos go here -->
+    <div class="photos">
+      <img src="pic1.jpg" alt="photo of you">
+      <img src="pic2.jpg" alt="photo of you">
+      <img src="pic3.jpg" alt="photo of you">
+    </div>
+
   </div>
 </body>
 </html>
