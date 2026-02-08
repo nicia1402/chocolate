@@ -17,29 +17,14 @@
     overflow: hidden;
   }
 
-  /* floating background hearts */
-  .heart {
-    position: absolute;
-    font-size: 18px;
-    opacity: 0.3;
-    animation: float 12s linear infinite;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(110vh); }
-    100% { transform: translateY(-10vh); }
-  }
-
   .card {
-    background: rgba(255,255,255,0.96);
+    background: rgba(255,255,255,0.97);
     padding: 30px;
     border-radius: 26px;
     width: 90%;
     max-width: 380px;
     text-align: center;
     box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-    position: relative;
-    z-index: 2;
   }
 
   h1 {
@@ -52,40 +37,48 @@
     color: #666;
   }
 
-  /* chocolate */
+  /* chocolate area */
   .choco-box {
+    width: 180px;
+    height: 240px;
     margin: 25px auto;
-    width: 170px;
-    height: 230px;
     position: relative;
     cursor: pointer;
   }
 
-  .wrap {
+  /* wrapper */
+  .wrapper {
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
-    border-radius: 20px;
+    border-radius: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: bold;
-    transition: all 0.35s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 2;
   }
 
+  /* chocolate bar */
   .chocolate {
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, #6b3e26, #4b2a18);
-    border-radius: 20px;
+    border-radius: 22px;
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 6px;
     opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffd6a5;
-    font-size: 1.1rem;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s ease;
+  }
+
+  .piece {
+    background: linear-gradient(135deg, #7a452c, #3e2316);
+    border-radius: 8px;
   }
 
   .hint {
@@ -93,14 +86,17 @@
     color: #777;
   }
 
-  audio {
+  iframe {
     width: 100%;
+    height: 60px;
+    border: none;
     margin-top: 15px;
+    border-radius: 12px;
   }
 
   .next {
     display: none;
-    margin-top: 20px;
+    margin-top: 18px;
     padding: 12px 20px;
     background: #ff4d6d;
     color: white;
@@ -114,40 +110,41 @@
 
 <body>
 
-<!-- floating hearts -->
-<span class="heart" style="left:10%;animation-delay:0s">💗</span>
-<span class="heart" style="left:30%;animation-delay:3s">💖</span>
-<span class="heart" style="left:50%;animation-delay:6s">💘</span>
-<span class="heart" style="left:70%;animation-delay:1s">💝</span>
-<span class="heart" style="left:90%;animation-delay:4s">💞</span>
-
 <div class="card">
   <h1>Happy Chocolate Day 🍫</h1>
   <p class="subtitle">
-    I couldn’t give you real chocolate…  
-    so I made one for you 💗
+    I couldn’t give you one in person…  
+    so unwrap this instead 💗
   </p>
 
   <div class="choco-box" id="choco">
-    <div class="wrap" id="wrap">Tap to unwrap 🎁</div>
-    <div class="chocolate" id="chocolate">Just for you 🤎</div>
+    <div class="wrapper" id="wrapper">Tap to unwrap 🎁</div>
+
+    <div class="chocolate" id="chocolate">
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+      <div class="piece"></div><div class="piece"></div><div class="piece"></div>
+    </div>
   </div>
 
   <p class="hint" id="hint">5 taps to open</p>
 
-  <!-- music player (iPhone safe) -->
-  <audio controls>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Correct song -->
+  <iframe
+    src="https://www.youtube.com/embed/0dLX40UMUKo"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
 
   <button class="next" id="next" onclick="goNext()">
-    Read something I wrote 💌
+    Read what I wrote 💌
   </button>
 </div>
 
 <script>
   let taps = 0;
-  const wrap = document.getElementById("wrap");
+  const wrapper = document.getElementById("wrapper");
   const chocolate = document.getElementById("chocolate");
   const hint = document.getElementById("hint");
   const next = document.getElementById("next");
@@ -155,15 +152,14 @@
   document.getElementById("choco").addEventListener("click", () => {
     if (taps < 5) {
       taps++;
-      wrap.style.transform =
-        `translateY(-${taps * 12}px) scale(${1 - taps * 0.06})`;
+      wrapper.style.transform = `translateY(-${taps * 18}px)`;
       hint.textContent = `${5 - taps} tap(s) left`;
     }
 
     if (taps === 5) {
-      wrap.style.opacity = "0";
+      wrapper.style.opacity = "0";
       chocolate.style.opacity = "1";
-      hint.textContent = "Unwrapped just for you 💖";
+      hint.textContent = "Unwrapped just for you 🤎";
       next.style.display = "inline-block";
     }
   });
