@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Happy Chocolate Day 🍫</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffe6eb, #fff0f5);
+    font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* floating background hearts */
+  .heart {
+    position: absolute;
+    font-size: 18px;
+    opacity: 0.3;
+    animation: float 12s linear infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(110vh); }
+    100% { transform: translateY(-10vh); }
+  }
+
+  .card {
+    background: rgba(255,255,255,0.96);
+    padding: 30px;
+    border-radius: 26px;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    color: #ff4d6d;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    color: #666;
+  }
+
+  /* chocolate */
+  .choco-box {
+    margin: 25px auto;
+    width: 170px;
+    height: 230px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .wrap {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    transition: all 0.35s ease;
+  }
+
+  .chocolate {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #6b3e26, #4b2a18);
+    border-radius: 20px;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffd6a5;
+    font-size: 1.1rem;
+    transition: opacity 0.4s ease;
+  }
+
+  .hint {
+    font-size: 0.9rem;
+    color: #777;
+  }
+
+  audio {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .next {
+    display: none;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- floating hearts -->
+<span class="heart" style="left:10%;animation-delay:0s">💗</span>
+<span class="heart" style="left:30%;animation-delay:3s">💖</span>
+<span class="heart" style="left:50%;animation-delay:6s">💘</span>
+<span class="heart" style="left:70%;animation-delay:1s">💝</span>
+<span class="heart" style="left:90%;animation-delay:4s">💞</span>
+
+<div class="card">
+  <h1>Happy Chocolate Day 🍫</h1>
+  <p class="subtitle">
+    I couldn’t give you real chocolate…  
+    so I made one for you 💗
+  </p>
+
+  <div class="choco-box" id="choco">
+    <div class="wrap" id="wrap">Tap to unwrap 🎁</div>
+    <div class="chocolate" id="chocolate">Just for you 🤎</div>
+  </div>
+
+  <p class="hint" id="hint">5 taps to open</p>
+
+  <!-- music player (iPhone safe) -->
+  <audio controls>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="next" id="next" onclick="goNext()">
+    Read something I wrote 💌
+  </button>
+</div>
+
+<script>
+  let taps = 0;
+  const wrap = document.getElementById("wrap");
+  const chocolate = document.getElementById("chocolate");
+  const hint = document.getElementById("hint");
+  const next = document.getElementById("next");
+
+  document.getElementById("choco").addEventListener("click", () => {
+    if (taps < 5) {
+      taps++;
+      wrap.style.transform =
+        `translateY(-${taps * 12}px) scale(${1 - taps * 0.06})`;
+      hint.textContent = `${5 - taps} tap(s) left`;
+    }
+
+    if (taps === 5) {
+      wrap.style.opacity = "0";
+      chocolate.style.opacity = "1";
+      hint.textContent = "Unwrapped just for you 💖";
+      next.style.display = "inline-block";
+    }
+  });
+
+  function goNext() {
+    window.location.href = "letter.html";
+  }
+</script>
+
+</body>
+</html>
