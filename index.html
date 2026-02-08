@@ -157,7 +157,8 @@
     </iframe>
   </div>
 
-  <button onclick="goToLetter()">GO AHEAD AND READ WHAT YOUR HUBBY WROTE FOR YOU :3!!!💌</button>
+  <button onclick="goNext()">GO AHEAD AND READ WHAT YOUR HUBBY WROTE FOR YOU :3!!!💌</button>
+
 </div>
 
 <script>
@@ -166,7 +167,7 @@
   const wrapper = document.getElementById("wrapper");
   const chocolate = document.getElementById("chocolate");
   const hint = document.getElementById("hint");
-  const next = document.getElementById("next");
+
 
   document.getElementById("choco").addEventListener("click", () => {
     if (taps < 5) {
@@ -179,7 +180,7 @@
       wrapper.style.opacity = "0";
       chocolate.style.opacity = "1";
       hint.textContent = "Unwrapped just for you 🤎";
-      next.style.display = "inline-block";
+      
     }
   });
 
