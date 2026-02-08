@@ -14,17 +14,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    overflow-x: hidden;
   }
 
   .letter {
     background: white;
     padding: 32px;
     border-radius: 26px;
-    width: 100%;
+    width: 90%;
     max-width: 420px;
     box-shadow: 0 18px 40px rgba(0,0,0,0.18);
     text-align: center;
+    z-index: 2;
   }
 
   h1 {
@@ -39,37 +40,37 @@
     white-space: pre-line;
   }
 
-  /* photo section */
-  .photos {
-    margin-top: 30px;
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
   .photos img {
-    width: 130px;
-    height: 170px;
-    object-fit: cover;
-    background: white;
-    padding: 8px 8px 22px;
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-    transition: transform 0.3s ease;
+    width: 100%;
+    border-radius: 18px;
+    margin-top: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   }
 
-  .photos img:hover {
-    transform: scale(1.05);
+  /* Floating hearts */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 18px;
+    animation: floatUp linear forwards;
+    opacity: 0.7;
+  }
+
+  @keyframes floatUp {
+    to {
+      transform: translateY(-110vh);
+      opacity: 0;
+    }
   }
 </style>
 </head>
 
 <body>
-  <div class="letter">
-    <h1>Hey you tyler! :3 💗</h1>
 
-    <p>
+<div class="letter">
+  <h1>Hey you tyler! :3 💗</h1>
+
+  <p>
 tomorrow is chocolate day, and i’ve been thinking a lot about how i can’t give you something so simple just because of the distance between us. i know it might seem like a small thing, but it honestly hurts me that i can’t be there to hand you a chocolate myself. i wish i could see your reaction, watch you smile, and just be with you even for a moment. i’m really sorry that i can’t do that right now, and i hope you know that this distance is the only thing stopping me, not my feelings. if i had the choice, i would always choose to be there for you, especially on days like this.
 
 even though i can’t give you chocolate, i want you to know that my love for you is real and constant. it doesn’t disappear because of miles or screens. i carry you with me in my thoughts every day, in the little moments and the quiet ones too. sometimes i imagine what it would be like if we were closer, how easy it would be to do small things together, and it just makes me want that future even more. until then, all i can do is give you my words and my heart, and i hope that’s enough for now.
@@ -79,15 +80,28 @@ you truly are the best person in my life. the way you talk to me, the way you un
 i’m sorry if the distance ever makes things feel harder or makes days like chocolate day feel a little disappointing. please know that none of this changes how much i love you. if anything, it reminds me how special you are to me, because missing you hurts in a way that only someone important could cause. i appreciate every moment we share, every conversation, every laugh, and even the quiet times when we’re just there for each other. those moments mean more to me than any gift ever could.
 
 i want you to remember that no matter what day it is, you are loved deeply and endlessly by me. chocolate day is just one day, but my love for you is something i feel every single day without fail. you are my favorite person, my happiness, and my comfort. i love you so much, and i always will. even from far away, my heart is always with you, and i hope you can feel that today and every day after. <3
-    </p>
+  </p>
 
-    <!-- photos go here -->
-    <div class="photos">
-      <img src="pic1.jpg" alt="photo of you">
-      <img src="pic2.jpg" alt="photo of you">
-      <img src="pic3.jpg" alt="photo of you">
-    </div>
-
+  <div class="photos">
+    <!-- put your images in the SAME folder -->
+    <img src="pic1.jpg">
+    <img src="pic2.jpg">
   </div>
+</div>
+
+<script>
+  // floating hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💞";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+  }, 500);
+</script>
+
 </body>
 </html>
