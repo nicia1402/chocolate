@@ -14,7 +14,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
   }
 
   .card {
@@ -37,7 +36,6 @@
     color: #666;
   }
 
-  /* chocolate area */
   .choco-box {
     width: 180px;
     height: 240px;
@@ -46,7 +44,6 @@
     cursor: pointer;
   }
 
-  /* wrapper */
   .wrapper {
     position: absolute;
     inset: 0;
@@ -61,7 +58,6 @@
     z-index: 2;
   }
 
-  /* chocolate bar */
   .chocolate {
     position: absolute;
     inset: 0;
@@ -86,12 +82,17 @@
     color: #777;
   }
 
-  iframe {
-    width: 100%;
-    height: 60px;
-    border: none;
+  /* Spotify player */
+  .player {
     margin-top: 15px;
     border-radius: 12px;
+    overflow: hidden;
+  }
+
+  iframe {
+    border: none;
+    width: 100%;
+    height: 80px;
   }
 
   .next {
@@ -130,12 +131,13 @@
 
   <p class="hint" id="hint">5 taps to open</p>
 
-  <!-- Correct song -->
-  <iframe
-    src="https://www.youtube.com/embed/0dLX40UMUKo"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-  </iframe>
+  <!-- REAL music player -->
+  <div class="player">
+    <iframe
+      src="https://open.spotify.com/embed/track/3XVBdLihbNbxUwZosxcGuJ"
+      allow="encrypted-media">
+    </iframe>
+  </div>
 
   <button class="next" id="next" onclick="goNext()">
     Read what I wrote 💌
